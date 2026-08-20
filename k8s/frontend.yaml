@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: journal-frontend
+  labels:
+    app: journal-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: journal-frontend
+  template:
+    metadata:
+      labels:
+        app: journal-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gcr.io/my-gcp-project/journal-frontend:latest # Placeholder to be updated with user's actual image name
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              name: http
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: journal-frontend-service
+  labels:
+    app: journal-frontend
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      name: http
+  selector:
+    app: journal-frontend

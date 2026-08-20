@@ -1,0 +1,6 @@
+type,username_prefix,password,email_domain,journal_title,journal_content,journal_title_updated,journal_content_updated
+success,dt_user,Pass123!,dynatrace.com,GKE Postgres Deployment,Verified StatefulSet and Ingress successfully.,Updated GKE Title,Updated GKE Content details.
+success,apm_user,ApmPass456!,dynatrace.com,Dynatrace JVM Monitoring,APM monitoring dashboard active.,Updated APM Title,Updated APM Content details.
+success,k8s_user,K8sPass789!,dynatrace.com,NetworkPolicies Applied,Restricted ingress to postgres pod.,Updated Security Title,Updated Security Content details.
+success,ops_user,OpsPass321!,dynatrace.com,StatefulSet PVC Mount,Persistent disk capacity verified.,Updated Ops Title,Updated Ops Content details.
+success,dev_user,DevPass654!,dynatrace.com,Container Native Routing,Network Endpoint Groups configured.,Updated Dev Title,Updated Dev Content details.

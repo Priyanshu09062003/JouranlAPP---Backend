@@ -4,7 +4,6 @@ import com.example.Practice.entities.JournalEntry;
 import com.example.Practice.entities.User;
 import com.example.Practice.services.JournalEntryService;
 import com.example.Practice.services.Userservice;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,10 +49,8 @@ public class JournalEntryControllerv2 {
         }
     }
 
-// Check this not working
     @GetMapping("/id/{myId}")
-    public ResponseEntity<JournalEntry> getSingle(@PathVariable ObjectId myId) {
-        // ObjectId objectId = new ObjectId(myId);
+    public ResponseEntity<JournalEntry> getSingle(@PathVariable Long myId) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         User byUsername = userservice.findByUsername(username);
@@ -68,8 +65,7 @@ public class JournalEntryControllerv2 {
     }
 
     @DeleteMapping("/id/{ID}")
-    public ResponseEntity<?> setSingle(@PathVariable ObjectId ID) throws Exception {
-        // there is no cascade delete in mongodb we have to manually do it.
+    public ResponseEntity<?> setSingle(@PathVariable Long ID) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         boolean removed =journalEntryService.deleteById(ID, username);
@@ -82,14 +78,13 @@ public class JournalEntryControllerv2 {
     }
 
     @PutMapping("/id/{ID}")
-    public ResponseEntity<JournalEntry> setSingle(@PathVariable ObjectId ID, @RequestBody JournalEntry newEntry) {
+    public ResponseEntity<JournalEntry> setSingle(@PathVariable Long ID, @RequestBody JournalEntry newEntry) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         JournalEntry old = journalEntryService.findById(ID).orElse(null);
         if (old != null) {
             old.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : old.getTitle());
             old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent() : old.getContent());
-//            journalEntryService.saveEntry(old, user); // no need for user as old as it reference which come from db
             journalEntryService.updateUserEntry(old,username);
             journalEntryService.saveJorunal(old);
             return new ResponseEntity<>(old, HttpStatus.OK);

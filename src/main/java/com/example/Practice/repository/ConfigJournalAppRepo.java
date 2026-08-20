@@ -1,9 +1,9 @@
 package com.example.Practice.repository;
 
 import com.example.Practice.entities.ConfigJournalAppEntity;
-import com.example.Practice.entities.User;
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ConfigJournalAppRepo extends MongoRepository<ConfigJournalAppEntity, ObjectId> {
+@Repository
+public interface ConfigJournalAppRepo extends JpaRepository<ConfigJournalAppEntity, Long> {
 }

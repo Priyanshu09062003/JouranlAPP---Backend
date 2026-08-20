@@ -1,30 +1,25 @@
 package com.example.Practice.entities;
 
 import lombok.*;
-import org.bson.types.ObjectId;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import java.time.LocalDate;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
+@Entity
+@Table(name = "journal_entries")
 @Data
-//@Getter
-//@Setter
 @NoArgsConstructor
-@Document(collection = "journal_entries")
+@RequiredArgsConstructor
 public class JournalEntry {
 
     @Id
-    private ObjectId id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(nullable = false)
     @NonNull
     private String title;
 
     private String content;
 
     private LocalDateTime date;
-
-
 }

@@ -3,7 +3,6 @@ package com.example.Practice.services;
 import com.example.Practice.entities.JournalEntry;
 import com.example.Practice.entities.User;
 import com.example.Practice.repository.JournalEntryRepo;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +52,8 @@ public class JournalEntryService {
         return journalEntryRepo.findAll();
     }
 
-    public Optional<JournalEntry> findById(ObjectId id) {
+    @Transactional(readOnly = true)
+    public Optional<JournalEntry> findById(Long id) {
         return journalEntryRepo.findById(id)
                 .or(() -> {
                     System.out.println("Journal Entry with ID " + id + " not found.");
@@ -61,7 +61,8 @@ public class JournalEntryService {
                 });
     }
 
-    public boolean deleteById(ObjectId id, String username) throws Exception {
+    @Transactional
+    public boolean deleteById(Long id, String username) throws Exception {
         try {
             User user = userservice.findByUsername(username);
             boolean removed = user.getJournalentries().removeIf(entry -> entry.getId().equals(id));
@@ -77,6 +78,7 @@ public class JournalEntryService {
         return false;
     }
 
+    @Transactional
     public boolean updateUserEntry(JournalEntry entry, String username) {
         User user = userservice.findByUsername(username);
 
