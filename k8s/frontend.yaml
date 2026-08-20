@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: gcr.io/my-gcp-project/journal-frontend:latest # Placeholder to be updated with user's actual image name
+          image: us-central1-docker.pkg.dev/project-2dca42d9-9230-4b9e-839/journal-repo/journal-frontend:latest # Placeholder to be updated with user's actual image name
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80
