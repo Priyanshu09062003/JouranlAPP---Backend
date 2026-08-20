@@ -40,6 +40,8 @@ spec:
       labels:
         app: postgres
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
         - name: postgres
           image: postgres:15-alpine
@@ -47,6 +49,8 @@ spec:
             - containerPort: 5432
               name: postgres
           env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
