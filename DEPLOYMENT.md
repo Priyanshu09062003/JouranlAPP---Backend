@@ -51,10 +51,19 @@ Ensure you are authenticated with the Google Cloud CLI (`gcloud`) and have selec
 
 ---
 
-## Step 2: Build and Push Docker Images
+## Step 2: Navigate and Build Docker Images
+
+> [!IMPORTANT]
+> 1. You **MUST** navigate into the `JouranlAPP---Backend` directory before running build commands, as this is where the `Dockerfile` is located.
+> 2. Docker registry repositories and image tags **MUST be strictly lowercase**. Do not use uppercase letters (like `JouranlAPP---Backend`) in the repository path of the tag, or Docker will fail with `repository name must be lowercase`.
+
+First, change directory:
+```bash
+cd JouranlAPP---Backend
+```
 
 ### 1. Spring Boot Backend
-1. Build and tag the backend image:
+1. Build and tag the backend image (from inside `JouranlAPP---Backend` folder):
    ```bash
    docker build -t us-central1-docker.pkg.dev/[PROJECT_ID]/journal-repo/journal-backend:latest .
    ```
@@ -64,7 +73,7 @@ Ensure you are authenticated with the Google Cloud CLI (`gcloud`) and have selec
    ```
 
 ### 2. React Frontend
-1. Build and tag the frontend image:
+1. Build and tag the frontend image (from inside `JouranlAPP---Backend` folder):
    ```bash
    docker build -t us-central1-docker.pkg.dev/[PROJECT_ID]/journal-repo/journal-frontend:latest ./frontend
    ```
@@ -73,7 +82,7 @@ Ensure you are authenticated with the Google Cloud CLI (`gcloud`) and have selec
    docker push us-central1-docker.pkg.dev/[PROJECT_ID]/journal-repo/journal-frontend:latest
    ```
 
-*(Note: Replace `[PROJECT_ID]` with your GCP Project ID in all commands above).*
+*(Note: Replace `[PROJECT_ID]` with your GCP Project ID, and ensure `journal-repo` is the lowercase repository name you created in Step 1).*
 
 ---
 
