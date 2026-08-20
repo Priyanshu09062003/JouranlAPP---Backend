@@ -16,14 +16,14 @@ spec:
     spec:
       containers:
         - name: backend
-          image: us-central1-docker.pkg.dev/project-2dca42d9-9230-4b9e-839/journal-repo/journal-backend:latest # Placeholder to be updated with user's actual image name
+          image: us-central1-docker.pkg.dev/project-2dca42d9-9230-4b9e-839/journal-repo/journal-backend:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8081
               name: http
           env:
             - name: DB_HOST
-              value: "postgres-service"
+              value: "postgres-0.postgres-service.default.svc.cluster.local"
             - name: DB_PORT
               value: "5432"
             - name: DB_NAME
@@ -57,6 +57,7 @@ spec:
             limits:
               cpu: "500m"
               memory: "1Gi"
+---
 apiVersion: v1
 kind: Service
 metadata:
