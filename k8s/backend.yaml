@@ -42,8 +42,9 @@ spec:
             httpGet:
               path: /public/health-check
               port: 8081
-            failureThreshold: 15
+            initialDelaySeconds: 10
             periodSeconds: 10
+            failureThreshold: 30 # Up to 300 seconds for initial Dynatrace/DB startup
           livenessProbe:
             httpGet:
               path: /public/health-check
