@@ -2,16 +2,12 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: journal-ingress
-  annotations:
-    kubernetes.io/ingress.class: gce # standard Google Cloud HTTP(S) Load Balancer
-    # Enable container-native load balancing via Network Endpoint Groups (NEGs)
-    # This enables direct routing from the load balancer to the pods for lower latency
-    cloud.google.com/neg: '{"ingress": true}'
 spec:
+  ingressClassName: gce # Standard GKE HTTP(S) Load Balancer
   rules:
     - http:
         paths:
-          # Backend paths route to the Spring Boot service
+          # Backend Spring Boot routes
           - path: /public
             pathType: Prefix
             backend:
@@ -40,7 +36,7 @@ spec:
                 name: journal-backend-service
                 port:
                   number: 8081
-          # Default route/root routes to Nginx serving the React frontend
+          # Frontend React routes
           - path: /
             pathType: Prefix
             backend:

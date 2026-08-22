@@ -38,17 +38,21 @@ spec:
                 secretKeyRef:
                   name: postgres-credentials
                   key: postgres-password
+          startupProbe:
+            httpGet:
+              path: /public/health-check
+              port: 8081
+            failureThreshold: 15
+            periodSeconds: 10
           livenessProbe:
             httpGet:
               path: /public/health-check
               port: 8081
-            initialDelaySeconds: 30
             periodSeconds: 15
           readinessProbe:
             httpGet:
               path: /public/health-check
               port: 8081
-            initialDelaySeconds: 20
             periodSeconds: 10
           resources:
             requests:
